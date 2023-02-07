@@ -18,7 +18,7 @@
         android:layout_marginLeft="15dip"
         android:layout_marginTop="15dip"
         android:gravity="top|left"
-        android:minLines="3"
+        android:minLines="4"
         android:padding="5dip"
         android:text="@string/default_hint" />
 
@@ -38,14 +38,13 @@
         android:id="@+id/encryptedText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/inputtedUnencryptedText"
+        android:layout_below="@id/encryptButton"
         android:layout_marginLeft="15dip"
         android:layout_marginTop="15dip"
-        android:layout_toRightOf="@id/encryptButton"
         android:editable="false"
         android:ellipsize="end"
         android:gravity="top|left"
-        android:minLines="5"
+        android:minLines="4"
         android:padding="5dip" />
 
 
@@ -64,13 +63,12 @@
         android:id="@+id/decryptedText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/encryptedText"
+        android:layout_below="@id/decryptButton"
         android:layout_marginLeft="15dip"
         android:layout_marginTop="15dip"
-        android:layout_toRightOf="@id/encryptButton"
         android:editable="false"
         android:gravity="top|left"
-        android:minLines="3"
+        android:minLines="4"
         android:padding="5dip" />
 
     <Button
@@ -82,6 +80,5 @@
         android:layout_marginTop="30dip"
         android:padding="10dip"
         android:text="Clear" />
-
 
 </RelativeLayout>
