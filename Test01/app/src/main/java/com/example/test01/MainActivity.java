@@ -106,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
             AesEncryptDecrypt.aesDecrypt(encInputStream,
                     aesKeyChar,
                     ivs,
-                    AesEncryptDecrypt.AESCipherType.AES_CBC_PKCS5PADDING,
                     plainTextOutputStream);
 
             try {
@@ -170,7 +169,6 @@ public class MainActivity extends AppCompatActivity {
         //main aes encrypt
         byte[] iv = AesEncryptDecrypt.aesEncrypt(plainTextInputStream,
                 AesEncryptDecrypt.NOT_SECRET_ENCRYPTION_KEY.toCharArray(),
-                AesEncryptDecrypt.AESCipherType.AES_CBC_PKCS5PADDING,
                 encOutputStream);
 
         //combine the aes key and iv

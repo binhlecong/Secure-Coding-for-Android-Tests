@@ -79,20 +79,18 @@ public class AesEncryptDecrypt {
      *
      * @param inData inputStream that represents the plaintext data
      * @param key unencoded and unencrypted aes key
-     * @param aesCipherType enum representing what ciper to use boils down to a string
      * @param outData  outputstream where we write the encrypted data
      * @return IV generated from key creation
      */
     public static byte[] aesEncrypt(InputStream inData,
                                     char[] key,
-                                    AesEncryptDecrypt.AESCipherType aesCipherType,
                                     OutputStream outData)
     {
         CipherOutputStream cos = null;
         try
         {
             //create the cipher from the passed in type using the specified security provider
-            Cipher cipher = Cipher.getInstance(aesCipherType.getValue(), SECURITY_PROVIDER);
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding", SECURITY_PROVIDER);
             //generate secret key
             SecretKey secret = getSecretKey(key);
             //init the cipher
@@ -162,20 +160,15 @@ public class AesEncryptDecrypt {
      * @param inData inputStream that represents the encrypted data
      * @param key unencoded and unencrypted aes key
      * @param ivs unencoded and unencrypted iv
-     * @param aesCipherType enum representing what ciper to use boils down to a string
      * @param outData outputstream where we write the decrypted data
      */
-    public static void aesDecrypt(InputStream inData,
-                                  char[] key,
-                                  byte[] ivs,
-                                  AesEncryptDecrypt.AESCipherType aesCipherType,
-                                  OutputStream outData)
+    public static void aesDecrypt(InputStream inData, char[] key, byte[] ivs, OutputStream outData)
     {
         CipherInputStream cis = null;
         try
         {
             //create the cipher from the passed in type using the specified security provider
-            Cipher cipher = Cipher.getInstance(aesCipherType.getValue(), SECURITY_PROVIDER);
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding", SECURITY_PROVIDER);
             //generate secret key
             SecretKey secret = getSecretKey(key);
             //if ivs is passed in then we should use it to create the
