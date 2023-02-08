@@ -52,7 +52,7 @@ public class RsaEncryptDecrypt {
         byte[] enc = null;
         try
         {
-            Cipher cipher = Cipher.getInstance(RSA);
+            Cipher cipher = Cipher.getInstance("RSA/None/NoPadding");
             cipher.init(Cipher.ENCRYPT_MODE, publicKey);
             enc = cipher.doFinal(plain);
         }
@@ -78,7 +78,7 @@ public class RsaEncryptDecrypt {
         byte[] plain = null;
         try
         {
-            Cipher cipher = Cipher.getInstance(RSA);
+            Cipher cipher = Cipher.getInstance("RSA/None/NoPadding");
             cipher.init(Cipher.DECRYPT_MODE, privateKey);
             plain = cipher.doFinal(enc);
         }

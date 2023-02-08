@@ -1,19 +1,16 @@
 package com.example.test01;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.TextUtils;
-
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.ow2.util.base64.Base64;
 
@@ -64,33 +61,18 @@ public class MainActivity extends AppCompatActivity {
      *  wire the ui
      */
     private void wireUI() {
-        this.inputtedUnencryptedText = (EditText) findViewById(R.id.inputtedUnencryptedText);
-        this.encryptedText = (EditText) findViewById(R.id.encryptedText);
-        this.decryptedText = (EditText) findViewById(R.id.decryptedText);
+        this.inputtedUnencryptedText = findViewById(R.id.inputtedUnencryptedText);
+        this.encryptedText = findViewById(R.id.encryptedText);
+        this.decryptedText = findViewById(R.id.decryptedText);
 
-        this.encryptButton = (Button) findViewById(R.id.encryptButton);
-        this.encryptButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                encryptButton();
-            }
-        });
+        this.encryptButton = findViewById(R.id.encryptButton);
+        this.encryptButton.setOnClickListener(view -> encryptButton());
 
-        this.decryptButton = (Button) findViewById(R.id.decryptButton);
-        this.decryptButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                decryptButton();
-            }
-        });
+        this.decryptButton = findViewById(R.id.decryptButton);
+        this.decryptButton.setOnClickListener(view -> decryptButton());
 
-        this.clearButton = (Button) findViewById(R.id.clearButton);
-        this.clearButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                clearButton();
-            }
-        });
+        this.clearButton = findViewById(R.id.clearButton);
+        this.clearButton.setOnClickListener(view -> clearButton());
     }
 
     private void decryptButton() {
@@ -98,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         String encText = this.encryptedText.getText().toString();
 
         //sanity test on input from ui
-        if (encText != null && encText.trim().length() > 0) {
+        if (encText.trim().length() > 0) {
             //decrypt the stored aes and ivs key
             byte[] decryptedAESKeyIVS = RsaEncryptDecrypt.decryptRSA(this.encryptedAESKey, this.rsaKey.getPrivate());
             //we combined the aes key and iv earlier in encryptButton() now after we decrypted
@@ -124,12 +106,11 @@ public class MainActivity extends AppCompatActivity {
             AesEncryptDecrypt.aesDecrypt(encInputStream,
                     aesKeyChar,
                     ivs,
-                    AesEncryptDecrypt.AESCipherType.AES_CBC_PKCS5PADDING,
                     plainTextOutputStream);
 
             try {
                 //convert decrypted outputstream to a string
-                unencryptedString = new String(plainTextOutputStream.toByteArray(), "UTF-8");
+                unencryptedString = plainTextOutputStream.toString("UTF-8");
             } catch (UnsupportedEncodingException e) {
                 Log.e(MainActivity.class.getName(), e.getMessage(), e);
                 return;
@@ -137,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
 
             //set decrypted text to the ui
             this.decryptedText.setText(unencryptedString);
-
         }
     }
 
@@ -189,18 +169,15 @@ public class MainActivity extends AppCompatActivity {
         //main aes encrypt
         byte[] iv = AesEncryptDecrypt.aesEncrypt(plainTextInputStream,
                 AesEncryptDecrypt.NOT_SECRET_ENCRYPTION_KEY.toCharArray(),
-                AesEncryptDecrypt.AESCipherType.AES_CBC_PKCS5PADDING,
                 encOutputStream);
 
         //combine the aes key and iv
-        byte[] combined = Util.concat(AesEncryptDecrypt.NOT_SECRET_ENCRYPTION_KEY.getBytes(),
-                iv);
+        byte[] combined = Util.concat(AesEncryptDecrypt.NOT_SECRET_ENCRYPTION_KEY.getBytes(), iv);
 
         //encrypt the combined keys using rsa and store the encrypted value
         encryptedAESKey = RsaEncryptDecrypt.encryptRSA(combined, this.rsaKey.getPublic());
 
         //set ui textview to encrypted base64 encoded value
-        String encryptedString = new String(Base64.encode(encOutputStream.toByteArray()));
-        return encryptedString;
+        return new String(Base64.encode(encOutputStream.toByteArray()));
     }
 }
