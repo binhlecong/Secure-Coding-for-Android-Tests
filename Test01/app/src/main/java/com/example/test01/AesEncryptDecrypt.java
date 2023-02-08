@@ -85,8 +85,8 @@ public class AesEncryptDecrypt {
         CipherOutputStream cos = null;
         try
         {
-            //create the cipher from the passed in type using the specified security provider
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding", SECURITY_PROVIDER);
+            // TODO 1: Create the cipher with "AES/CBC/PKCS5Padding" using the specified SECURITY_PROVIDER
+
             //generate secret key
             SecretKey secret = getSecretKey(key);
             //init the cipher
@@ -163,8 +163,8 @@ public class AesEncryptDecrypt {
         CipherInputStream cis = null;
         try
         {
-            //create the cipher from the passed in type using the specified security provider
-            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding", SECURITY_PROVIDER);
+            // TODO 2: Create the cipher with "AES/CBC/PKCS5Padding" using the specified SECURITY_PROVIDER
+
             //generate secret key
             SecretKey secret = getSecretKey(key);
             //if ivs is passed in then we should use it to create the

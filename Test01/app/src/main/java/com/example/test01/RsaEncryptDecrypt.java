@@ -50,6 +50,7 @@ public class RsaEncryptDecrypt {
         byte[] enc = null;
         try
         {
+            // TODO 3: Follow the instruction doc to create a custom rule to for "RSA/None/NoPadding"
             Cipher cipher = Cipher.getInstance("RSA/None/NoPadding");
             cipher.init(Cipher.ENCRYPT_MODE, publicKey);
             enc = cipher.doFinal(plain);
