@@ -34,8 +34,6 @@ public class AesEncryptDecrypt {
     public static final int KEY_LENGTH = 256;
     //number of times the password is hashed
     public static final int ITERATION_COUNT = 65536;
-    //main family of aes
-    public static final String AES = "AES";
     //spongy castle security provider
     public static String SECURITY_PROVIDER = "SC";
 
@@ -82,9 +80,7 @@ public class AesEncryptDecrypt {
      * @param outData  outputstream where we write the encrypted data
      * @return IV generated from key creation
      */
-    public static byte[] aesEncrypt(InputStream inData,
-                                    char[] key,
-                                    OutputStream outData)
+    public static byte[] aesEncrypt(InputStream inData, char[] key, OutputStream outData)
     {
         CipherOutputStream cos = null;
         try
@@ -149,7 +145,7 @@ public class AesEncryptDecrypt {
                 KEY_LENGTH);
 
         SecretKey tmp = factory.generateSecret(spec);
-        return new SecretKeySpec(tmp.getEncoded(), AES);
+        return new SecretKeySpec(tmp.getEncoded(), "AES");
     }
 
     /**

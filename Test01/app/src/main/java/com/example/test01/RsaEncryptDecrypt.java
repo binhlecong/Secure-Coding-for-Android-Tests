@@ -13,8 +13,6 @@ import javax.crypto.Cipher;
 public class RsaEncryptDecrypt {
     //key length
     public static final int KEY_LENGTH = 2048;
-    //main family of rsa
-    public static final String RSA = "RSA";
 
     /**
      * generate a 2048 bit RSA key
@@ -27,7 +25,7 @@ public class RsaEncryptDecrypt {
         try
         {
             //get an RSA key generator
-            kpg = KeyPairGenerator.getInstance(RSA);
+            kpg = KeyPairGenerator.getInstance("RSA");
         }
         catch (NoSuchAlgorithmException e)
         {
